@@ -1,8 +1,14 @@
 #!/bin/bash
 
-input="rtsp://5.149.25.177:554/11"
+# RTSP-Adresse deiner eigenen IP-Kamera eintragen (Benutzer, Passwort, IP und Pfad siehe Handbuch der Kamera)
+input="rtsp://USER:PASS@CAMERA-IP:554/stream"
 
-#https://www.shodan.io/host/91.232.238.202 (https://www.shodan.io/search?query=has_screenshot%3Atrue+country%3Aua)
+if [[ "$input" == *"CAMERA-IP"* ]]; then
+  echo "Bitte zuerst in streamer/createStream.sh die Variable input auf die RTSP-Adresse deiner Kamera setzen,"
+  echo "z.B. input=\"rtsp://admin:geheim@192.168.1.50:554/stream\"."
+  echo "Please set the variable input in streamer/createStream.sh to the RTSP address of your camera first."
+  exit 1
+fi
 
 output="stream.m3u8"
 echo "🚀 RTMP -> M3U8 Stream Converter"
@@ -19,7 +25,7 @@ echo "Running..."
 ffmpeg -fflags nobuffer \
  -loglevel debug \
  -rtsp_transport tcp \
- -i $input \
+ -i "$input" \
  -vsync 0 \
  -copyts \
  -vcodec copy \

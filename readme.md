@@ -13,22 +13,27 @@ the name, the script expects an RTSP source (`rtsp://...`).
 Requirements: [ffmpeg](https://ffmpeg.org) (e.g. `brew install ffmpeg`)
 and the RTSP URL of an IP camera.
 
-1. Set the source stream in the `input` variable of
-   `streamer/createStream.sh`.
-2. Run the script in a terminal and keep it running:
+Replace the placeholder `rtsp://USER:PASS@CAMERA-IP:554/stream` in the
+`input` variable of `streamer/createStream.sh` with the RTSP address of
+your own camera. As long as the placeholder is there, the script stops
+with a hint.
+
+Libraries (in `libraries/`): p5.js 1.10.0, p5.sound 1.0.1 (included, not
+used), hls.js 1.6.9.
+
+## How to Run
+
+1. Run the script in a terminal and keep it running:
    `bash streamer/createStream.sh`
    It deletes old segments and writes `stream.m3u8` and numbered `.ts`
    files into `streamer/`.
-3. Open the folder in Visual Studio Code and start Live Server (click
+2. Open the folder in Visual Studio Code and start Live Server (click
    **Go Live** in the status bar). The sketch shows "Loading video..."
    until the stream can be played.
 
 The workspace settings tell Live Server to ignore `streamer/**`, `*.ts` and
 `*.m3u8`, so the constantly changing segments do not trigger reloads. The
 generated files are also excluded in `.gitignore`.
-
-Libraries (in `libraries/`): p5.js 1.10.0, p5.sound 1.0.1 (included, not
-used), hls.js 1.6.9.
 
 ## Coding Help
 
